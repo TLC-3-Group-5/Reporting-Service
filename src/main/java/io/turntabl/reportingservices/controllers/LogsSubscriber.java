@@ -7,10 +7,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
+import org.springframework.stereotype.Service;
 
 import io.turntabl.reportingservices.models.Notification;
 import io.turntabl.reportingservices.services.NotificationService;
 
+@Service
 public class LogsSubscriber implements MessageListener {
 
   @Autowired

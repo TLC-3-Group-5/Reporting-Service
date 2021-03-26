@@ -1,7 +1,6 @@
 package io.turntabl.reportingservices.configs;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,11 +15,10 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 
+import io.turntabl.reportingservices.controllers.LogsSubscriber;
+
 @Configuration
 public class RedisConfig {
-
-  @Autowired
-  Receiver receiver;
 
   @Autowired
   private Environment env;
@@ -37,6 +35,9 @@ public class RedisConfig {
   @Value("${app.SPRING_REDIS_PASS}")
   private String SPRING_REDIS_PASS;
 
+  @Autowired
+  private LogsSubscriber logsSubscriber;
+
   private final ChannelTopic logsTopic = new ChannelTopic("logs");
 
 
@@ -45,7 +46,7 @@ public class RedisConfig {
     RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
 
     configuration.setHostName(SPRING_REDIS_URL);
-    configuration.setPort(Integer.parseInt(SPRING_REDIS_PORT);
+    configuration.setPort(Integer.parseInt(SPRING_REDIS_PORT));
 
     if (Arrays.asList(this.env.getActiveProfiles()).contains("prod")) {
       configuration.setUsername(SPRING_REDIS_USER);
@@ -64,15 +65,12 @@ public class RedisConfig {
   }
 
   @Bean
-  public MessageListenerAdapter messageListenerAdapter() {
-    return new MessageListenerAdapter(receiver);
-  }
-
-  @Bean
   public RedisMessageListenerContainer redisMessageListenerContainer() {
     RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+
     container.setConnectionFactory(connectionFactory());
-    container.addMessageListener(messageListenerAdapter(), logsTopic);
+    container.addMessageListener(new MessageListenerAdapter(logsSubscriber), logsTopic);
+    
     return container;
   }
 }

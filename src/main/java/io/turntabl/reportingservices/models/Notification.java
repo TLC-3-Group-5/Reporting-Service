@@ -6,57 +6,36 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Table
 @Entity(name = "Notification")
+@Table(name = "Notifications")
 public class Notification {
-  
+
   @Id
-  @SequenceGenerator(
-    name = "notification_sequence",
-    sequenceName = "notification_sequence",
-    allocationSize = 1
-  )
-  @GeneratedValue(
-    strategy = GenerationType.SEQUENCE,
-    generator = "notification_sequence"
-  )
-  @Column(
-    name = "id",
-    nullable = false,
-    updatable = false
-  )
+  @GeneratedValue(strategy = GenerationType.TABLE)
+  @Column(name = "id", nullable = false, updatable = false)
   private long id;
 
-  @Column(
-    name = "msg_type",
-    nullable = false,
-    updatable = false
-  )
+  @Column(name = "msg_type", nullable = false, updatable = false, length = 50)
   private String msgType;
 
-  @Column
+  @Column(length = 500)
   private String body;
 
-  @Column(name = "actor_user_id")
   @ManyToOne
-  @JoinColumn(name = "client_id")
+  @JoinColumn(name = "client_id", insertable = false, updatable = false)
   @JsonBackReference
-  private long actorUserId;
+  private Client actorUserId;
 
-  @Column(
-    name = "should_notify"
-  )
+  @Column(name = "should_notify")
   private boolean shouldNotify;
 
-  @Column(name = "recepient_user_id")
   @ManyToOne
-  @JoinColumn(name = "client_id")
+  @JoinColumn(name = "client_id", insertable = false, updatable = false)
   @JsonBackReference
-  private long receipientUserId;
+  private Client receipientUserId;
 
   @Column(name = "datetime")
   private LocalDateTime datetime;
-
 
   public long getId() {
     return id;
@@ -113,6 +92,5 @@ public class Notification {
   public void setDatetime(LocalDateTime datetime) {
     this.datetime = datetime;
   }
-  
 
 }

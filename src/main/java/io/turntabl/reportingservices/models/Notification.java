@@ -24,7 +24,7 @@ public class Notification {
   @ManyToOne
   @JoinColumn(name = "client_id", insertable = false, updatable = false)
   @JsonBackReference
-  private Client actorUserId;
+  private long actorUserId;
 
   @Column(name = "should_notify")
   private boolean shouldNotify;
@@ -32,7 +32,7 @@ public class Notification {
   @ManyToOne
   @JoinColumn(name = "client_id", insertable = false, updatable = false)
   @JsonBackReference
-  private Client receipientUserId;
+  private long receipientUserId;
 
   @Column(name = "datetime")
   private LocalDateTime datetime;

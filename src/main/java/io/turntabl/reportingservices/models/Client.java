@@ -29,18 +29,10 @@ public class Client {
 
   private Double balance;
 
-  // @OneToMany(mappedBy = "client")
-  // @JsonManagedReference
-  // private List<Portfolio> portfolios;
+  @OneToMany(mappedBy = "actorUserId")
+  @JsonManagedReference
+  private List<Notification> notifications;
 
-
-  // public List<Portfolio> getPortfolios() {
-  //   return portfolios;
-  // }
-
-  // public void setPortfolios(List<Portfolio> portfolios) {
-  //   this.portfolios = portfolios;
-  // }
 
   public Long getId() {
     return id;
@@ -85,5 +77,13 @@ public class Client {
   @Override
   public String toString() {
     return "Client{" + "id=" + id + ", email='" + email + '\'' + ", name='" + name + '\'' + '}';
+  }
+
+  public List<Notification> getNotifications() {
+    return notifications;
+  }
+
+  public void setNotifications(List<Notification> notifications) {
+    this.notifications = notifications;
   }
 }

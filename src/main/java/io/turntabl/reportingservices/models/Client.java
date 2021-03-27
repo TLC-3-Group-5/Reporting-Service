@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.List;
 
-@Table(name = "Clients")
+@Table
 @Entity(name = "Client")
 public class Client {
 

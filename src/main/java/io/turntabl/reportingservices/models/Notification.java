@@ -22,17 +22,17 @@ public class Notification {
   private String body;
 
   @ManyToOne
-  @JoinColumn(name = "client_id", insertable = false, updatable = false)
+  @JoinColumn(name = "actor_user_id", insertable = false, updatable = false)
   @JsonBackReference
-  private Client actorUserId;
+  private Client actor;
 
   @Column(name = "should_notify")
   private boolean shouldNotify;
 
   @ManyToOne
-  @JoinColumn(name = "client_id", insertable = false, updatable = false)
+  @JoinColumn(name = "receipient_user_id", insertable = false, updatable = false)
   @JsonBackReference
-  private Client receipientUserId;
+  private Client receipient;
 
   @Column(name = "datetime")
   private LocalDateTime datetime;
@@ -61,12 +61,12 @@ public class Notification {
     this.body = body;
   }
 
-  public long getActorUserId() {
-    return actorUserId;
+  public Client getActorUserId() {
+    return actor;
   }
 
-  public void setActorUserId(long actorUserId) {
-    this.actorUserId = actorUserId;
+  public void setActorUserId(Client actor) {
+    this.actor = actor;
   }
 
   public boolean isShouldNotify() {
@@ -77,12 +77,12 @@ public class Notification {
     this.shouldNotify = shouldNotify;
   }
 
-  public long getReceipientUserId() {
-    return receipientUserId;
+  public Client getReceipient() {
+    return receipient;
   }
 
-  public void setReceipientUserId(long receipientUserId) {
-    this.receipientUserId = receipientUserId;
+  public void setReceipientUserId(Client receipient) {
+    this.receipient = receipient;
   }
 
   public LocalDateTime getDatetime() {

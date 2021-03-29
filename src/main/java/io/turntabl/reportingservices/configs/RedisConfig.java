@@ -49,7 +49,7 @@ public class RedisConfig {
     configuration.setPort(Integer.parseInt(SPRING_REDIS_PORT));
 
     if (Arrays.asList(this.env.getActiveProfiles()).contains("prod")) {
-      configuration.setUsername(SPRING_REDIS_USER);
+      // configuration.setUsername(SPRING_REDIS_USER);
       configuration.setPassword(SPRING_REDIS_PASS);
     }
 

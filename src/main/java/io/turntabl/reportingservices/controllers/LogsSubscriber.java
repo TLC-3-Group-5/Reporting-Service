@@ -26,6 +26,9 @@ public class LogsSubscriber implements MessageListener {
       Notification notification = objectMapper.readValue(message.toString(), Notification.class);
 
       notificationService.createNotification(notification);
+
+      System.out.println("NEW NOTIFICATION");
+      System.out.println(notification);
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     }

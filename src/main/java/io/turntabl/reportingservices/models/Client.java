@@ -29,7 +29,7 @@ public class Client {
   private Double balance;
 
   @OneToMany(mappedBy = "receipient")
-  @JsonManagedReference
+  @JsonManagedReference(value = "recepient")
   private List<Notification> notifications;
 
 

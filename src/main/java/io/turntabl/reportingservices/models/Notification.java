@@ -1,6 +1,6 @@
 package io.turntabl.reportingservices.models;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -23,7 +23,7 @@ public class Notification {
 
   @ManyToOne
   @JoinColumn(name = "actor_user_id", insertable = false, updatable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "actor")
   private Client actor;
 
   @Column(name = "should_notify")
@@ -31,11 +31,11 @@ public class Notification {
 
   @ManyToOne
   @JoinColumn(name = "receipient_user_id", insertable = false, updatable = false)
-  @JsonBackReference
+  @JsonBackReference(value = "recepient")
   private Client receipient;
 
   @Column(name = "datetime")
-  private LocalDateTime datetime;
+  private Date datetime;
 
   public long getId() {
     return id;
@@ -85,12 +85,18 @@ public class Notification {
     this.receipient = receipient;
   }
 
-  public LocalDateTime getDatetime() {
+  public Date getDatetime() {
     return datetime;
   }
 
-  public void setDatetime(LocalDateTime datetime) {
+  public void setDatetime(Date datetime) {
     this.datetime = datetime;
+  }
+
+  @Override
+  public String toString() {
+    return "Notification{actor=" + actor + ", body=" + body + ", datetime=" + datetime + ", id=" + id + ", msgType="
+        + msgType + ", receipient=" + receipient + ", shouldNotify=" + shouldNotify + "}";
   }
 
 }
